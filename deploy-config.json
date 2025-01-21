@@ -1,0 +1,511 @@
+{
+  "project_name": "cc-dioxus-testy",
+  "langs": [
+    "Rust",
+    {
+      "Other": "CSS"
+    }
+  ],
+  "targets": [
+    {
+      "arch": "wasm32",
+      "os": {
+        "Other": "web"
+      },
+      "derivative": "any",
+      "version": "No"
+    }
+  ],
+  "deploy_toolkit": null,
+  "cache_files": [
+    ".git",
+    "Cargo.lock",
+    "target"
+  ],
+  "pipelines": [
+    {
+      "title": "run",
+      "desc": "Получено из `CC UI Kit Frontend App`. Run your `cc-ui-kit` app with Deployer",
+      "info": "cc-ui-kit-frontend-app@0.1.0",
+      "tags": [
+        "cargo",
+        "dioxus",
+        "trunk",
+        "rust",
+        "wasm",
+        "web"
+      ],
+      "actions": [
+        {
+          "title": "Leptos Fmt",
+          "desc": "Format Leptos `.rs` files",
+          "info": "leptos-fmt@0.1.0",
+          "tags": [
+            "rust",
+            "cargo",
+            "fmt"
+          ],
+          "action": {
+            "PreBuild": {
+              "supported_langs": [
+                "Rust"
+              ],
+              "commands": [
+                {
+                  "bash_c": "leptosfmt -t 2 ./**/*.rs",
+                  "ignore_fails": false,
+                  "show_success_output": false,
+                  "show_bash_c": true,
+                  "only_when_fresh": false
+                }
+              ]
+            }
+          },
+          "requirements": [
+            {
+              "Exists": "~/.cargo/bin/leptosfmt"
+            }
+          ],
+          "exec_in_project_dir": true
+        },
+        {
+          "title": "Cargo Fmt",
+          "desc": "Format `.rs` files",
+          "info": "cargo-fmt@0.1.0",
+          "tags": [
+            "rust",
+            "cargo",
+            "fmt"
+          ],
+          "action": {
+            "PreBuild": {
+              "supported_langs": [
+                "Rust"
+              ],
+              "commands": [
+                {
+                  "bash_c": "cargo fmt",
+                  "ignore_fails": false,
+                  "show_success_output": false,
+                  "show_bash_c": true,
+                  "only_when_fresh": false
+                }
+              ]
+            }
+          },
+          "exec_in_project_dir": true
+        },
+        {
+          "title": "Compile Tailwind Styles",
+          "desc": "Получено из `Compile Tailwind Styles`. Compile application style classes with `tailwindcss` JS util.",
+          "info": "tailwind-css@0.1.0",
+          "tags": [
+            "rust",
+            "css",
+            "tailwind"
+          ],
+          "action": {
+            "PreBuild": {
+              "supported_langs": [
+                {
+                  "Other": "CSS"
+                }
+              ],
+              "commands": [
+                {
+                  "bash_c": "npx --yes tailwindcss -i ./input.css -o ./public/tailwind.css --minify",
+                  "ignore_fails": false,
+                  "show_success_output": false,
+                  "show_bash_c": true,
+                  "only_when_fresh": false
+                }
+              ]
+            }
+          },
+          "exec_in_project_dir": false
+        },
+        {
+          "title": "Trunk Build",
+          "desc": "Получено из `Trunk Build`. Build WASM application with `trunk` in release mode.",
+          "info": "trunk-release@0.1.0",
+          "tags": [
+            "cargo",
+            "rust",
+            "trunk",
+            "wasm",
+            "web"
+          ],
+          "action": {
+            "Build": {
+              "supported_langs": [
+                "Rust"
+              ],
+              "commands": [
+                {
+                  "bash_c": "trunk build --release",
+                  "ignore_fails": false,
+                  "show_success_output": false,
+                  "show_bash_c": true,
+                  "only_when_fresh": false
+                }
+              ]
+            }
+          },
+          "requirements": [
+            {
+              "Exists": "~/.cargo/bin/trunk"
+            }
+          ],
+          "exec_in_project_dir": false
+        },
+        {
+          "title": "Optimize WASM",
+          "desc": "Run `wasm-opt` with `-Oz` argument inside `dist` folder",
+          "info": "wasm-opt@0.1.0",
+          "tags": [
+            "wasm",
+            "wasm-opt"
+          ],
+          "action": {
+            "PostBuild": {
+              "supported_langs": [
+                "Rust"
+              ],
+              "commands": [
+                {
+                  "bash_c": "wasm-opt -Oz -o {file} {file}",
+                  "placeholders": [
+                    "{file}"
+                  ],
+                  "replacements": [
+                    [
+                      [
+                        "{file}",
+                        {
+                          "title": "wasm-project-file",
+                          "is_secret": false,
+                          "value": {
+                            "Plain": "dist/cc-ui-kit-leptos-test_bg.wasm"
+                          }
+                        }
+                      ]
+                    ]
+                  ],
+                  "ignore_fails": false,
+                  "show_success_output": false,
+                  "show_bash_c": true,
+                  "only_when_fresh": false
+                }
+              ]
+            }
+          },
+          "requirements": [
+            {
+              "Exists": "/bin/wasm-opt"
+            }
+          ],
+          "exec_in_project_dir": false
+        },
+        {
+          "title": "Add `tailwind.css` from `public` to `dist`",
+          "desc": "",
+          "info": "add-tailwind-css-to-dist-folder@0.1.0",
+          "tags": [],
+          "action": {
+            "PostBuild": {
+              "supported_langs": [
+                "Rust"
+              ],
+              "commands": [
+                {
+                  "bash_c": "cp public/tailwind.css dist/",
+                  "ignore_fails": false,
+                  "show_success_output": false,
+                  "show_bash_c": true,
+                  "only_when_fresh": false
+                }
+              ]
+            }
+          },
+          "exec_in_project_dir": false
+        },
+        {
+          "title": "Sync CC Static Server",
+          "desc": "",
+          "info": "sync-cc-static-server@0.1.0",
+          "tags": [],
+          "action": {
+            "UseFromStorage": "static-server@latest"
+          },
+          "exec_in_project_dir": false
+        },
+        {
+          "title": "Run `cc-static-server`",
+          "desc": "",
+          "info": "run-static-server@0.1.0",
+          "tags": [],
+          "action": {
+            "Observe": {
+              "command": {
+                "bash_c": "./cc-static-server",
+                "ignore_fails": true,
+                "show_success_output": true,
+                "show_bash_c": false,
+                "only_when_fresh": false
+              }
+            }
+          },
+          "exec_in_project_dir": false
+        }
+      ],
+      "default": true
+    },
+    {
+      "title": "build",
+      "desc": "Получено из `CC UI Kit Frontend App`. Run your `cc-ui-kit` app with Deployer",
+      "info": "cc-ui-kit-frontend-app@0.1.0",
+      "tags": [
+        "cargo",
+        "dioxus",
+        "trunk",
+        "rust",
+        "wasm",
+        "web"
+      ],
+      "actions": [
+        {
+          "title": "Leptos Fmt",
+          "desc": "Format Leptos `.rs` files",
+          "info": "leptos-fmt@0.1.0",
+          "tags": [
+            "rust",
+            "cargo",
+            "fmt"
+          ],
+          "action": {
+            "PreBuild": {
+              "supported_langs": [
+                "Rust"
+              ],
+              "commands": [
+                {
+                  "bash_c": "leptosfmt -t 2 ./**/*.rs",
+                  "ignore_fails": false,
+                  "show_success_output": false,
+                  "show_bash_c": true,
+                  "only_when_fresh": false
+                }
+              ]
+            }
+          },
+          "requirements": [
+            {
+              "Exists": "~/.cargo/bin/leptosfmt"
+            }
+          ],
+          "exec_in_project_dir": true
+        },
+        {
+          "title": "Cargo Fmt",
+          "desc": "Format `.rs` files",
+          "info": "cargo-fmt@0.1.0",
+          "tags": [
+            "rust",
+            "cargo",
+            "fmt"
+          ],
+          "action": {
+            "PreBuild": {
+              "supported_langs": [
+                "Rust"
+              ],
+              "commands": [
+                {
+                  "bash_c": "cargo fmt",
+                  "ignore_fails": false,
+                  "show_success_output": false,
+                  "show_bash_c": true,
+                  "only_when_fresh": false
+                }
+              ]
+            }
+          },
+          "exec_in_project_dir": true
+        },
+        {
+          "title": "Compile Tailwind Styles",
+          "desc": "Получено из `Compile Tailwind Styles`. Compile application style classes with `tailwindcss` JS util.",
+          "info": "tailwind-css@0.1.0",
+          "tags": [
+            "rust",
+            "css",
+            "tailwind"
+          ],
+          "action": {
+            "PreBuild": {
+              "supported_langs": [
+                {
+                  "Other": "CSS"
+                }
+              ],
+              "commands": [
+                {
+                  "bash_c": "npx --yes tailwindcss -i ./input.css -o ./public/tailwind.css --minify",
+                  "ignore_fails": false,
+                  "show_success_output": false,
+                  "show_bash_c": true,
+                  "only_when_fresh": false
+                }
+              ]
+            }
+          },
+          "exec_in_project_dir": false
+        },
+        {
+          "title": "Trunk Build",
+          "desc": "Получено из `Trunk Build`. Build WASM application with `trunk` in release mode.",
+          "info": "trunk-release@0.1.0",
+          "tags": [
+            "cargo",
+            "rust",
+            "trunk",
+            "wasm",
+            "web"
+          ],
+          "action": {
+            "Build": {
+              "supported_langs": [
+                "Rust"
+              ],
+              "commands": [
+                {
+                  "bash_c": "trunk build --release",
+                  "ignore_fails": false,
+                  "show_success_output": false,
+                  "show_bash_c": true,
+                  "only_when_fresh": false
+                }
+              ]
+            }
+          },
+          "requirements": [
+            {
+              "Exists": "~/.cargo/bin/trunk"
+            }
+          ],
+          "exec_in_project_dir": false
+        },
+        {
+          "title": "Optimize WASM",
+          "desc": "Run `wasm-opt` with `-Oz` argument inside `dist` folder",
+          "info": "wasm-opt@0.1.0",
+          "tags": [
+            "wasm",
+            "wasm-opt"
+          ],
+          "action": {
+            "PostBuild": {
+              "supported_langs": [
+                "Rust"
+              ],
+              "commands": [
+                {
+                  "bash_c": "wasm-opt -Oz -o {file} {file}",
+                  "placeholders": [
+                    "{file}"
+                  ],
+                  "replacements": [
+                    [
+                      [
+                        "{file}",
+                        {
+                          "title": "wasm-project-file",
+                          "is_secret": false,
+                          "value": {
+                            "Plain": "dist/cc-ui-kit-leptos-test_bg.wasm"
+                          }
+                        }
+                      ]
+                    ]
+                  ],
+                  "ignore_fails": false,
+                  "show_success_output": false,
+                  "show_bash_c": true,
+                  "only_when_fresh": false
+                }
+              ]
+            }
+          },
+          "requirements": [
+            {
+              "Exists": "/bin/wasm-opt"
+            }
+          ],
+          "exec_in_project_dir": false
+        },
+        {
+          "title": "Add `tailwind.css` from `public` to `dist`",
+          "desc": "",
+          "info": "add-tailwind-css-to-dist-folder@0.1.0",
+          "tags": [],
+          "action": {
+            "PostBuild": {
+              "supported_langs": [
+                "Rust"
+              ],
+              "commands": [
+                {
+                  "bash_c": "cp public/tailwind.css dist/",
+                  "ignore_fails": false,
+                  "show_success_output": false,
+                  "show_bash_c": true,
+                  "only_when_fresh": false
+                }
+              ]
+            }
+          },
+          "exec_in_project_dir": false
+        },
+        {
+          "title": "Sync CC Static Server",
+          "desc": "",
+          "info": "sync-cc-static-server@0.1.0",
+          "tags": [],
+          "action": {
+            "UseFromStorage": "static-server@latest"
+          },
+          "exec_in_project_dir": false
+        }
+      ],
+      "default": false
+    }
+  ],
+  "artifacts": [
+    "dist",
+    "cc-static-server",
+    "static-server.yaml"
+  ],
+  "variables": [
+    {
+      "title": "wasm-project-file",
+      "is_secret": false,
+      "value": {
+        "Plain": "dist/cc-ui-kit-leptos-test_bg.wasm"
+      }
+    }
+  ],
+  "place_artifacts_into_project_root": [
+    [
+      "dist",
+      "dist"
+    ],
+    [
+      "cc-static-server",
+      "cc-static-server"
+    ],
+    [
+      "static-server.yaml",
+      "static-server.yaml"
+    ]
+  ]
+}
