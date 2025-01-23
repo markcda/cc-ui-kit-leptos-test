@@ -6,3 +6,14 @@ edition = "2024"
 [dependencies]
 cc-ui-kit = { path = "./ui-kit" }
 leptos = { version = "0.7", features = ["csr"] }
+lucide-leptos = "1.1"
+thaw = { version = "0.4.1", features = ["csr"] }
+
+[profile.release]
+opt-level = "z"
+debug = false
+lto = true
+codegen-units = 1
+panic = "abort"
+strip = true
+incremental = false

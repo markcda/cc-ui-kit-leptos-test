@@ -113,7 +113,7 @@
               ],
               "commands": [
                 {
-                  "bash_c": "npx --yes tailwindcss -i ./input.css -o ./public/tailwind.css --minify",
+                  "bash_c": "tailwindcss -i ./input.css -o ./public/tailwind.css --minify",
                   "ignore_fails": false,
                   "show_success_output": false,
                   "show_bash_c": true,
@@ -350,7 +350,7 @@
               ],
               "commands": [
                 {
-                  "bash_c": "npx --yes tailwindcss -i ./input.css -o ./public/tailwind.css --minify",
+                  "bash_c": "tailwindcss -i ./input.css -o ./public/tailwind.css --minify",
                   "ignore_fails": false,
                   "show_success_output": false,
                   "show_bash_c": true,
@@ -507,5 +507,6 @@
       "static-server.yaml",
       "static-server.yaml"
     ]
-  ]
+  ],
+  "version": 2
 }
