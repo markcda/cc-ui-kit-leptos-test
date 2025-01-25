@@ -3,4 +3,5 @@
 /public/tailwind.css
 /target
 /ui-kit
+.directory
 Cargo.lock

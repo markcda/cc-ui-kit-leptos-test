@@ -230,6 +230,29 @@
           "exec_in_project_dir": false
         },
         {
+          "title": "Add `favicon.ico` from `public` to `dist`",
+          "desc": "",
+          "info": "add-favicon-to-dist-folder@0.1.0",
+          "tags": [],
+          "action": {
+            "PostBuild": {
+              "supported_langs": [
+                "Rust"
+              ],
+              "commands": [
+                {
+                  "bash_c": "cp public/favicon.ico dist/",
+                  "ignore_fails": false,
+                  "show_success_output": false,
+                  "show_bash_c": true,
+                  "only_when_fresh": false
+                }
+              ]
+            }
+          },
+          "exec_in_project_dir": false
+        },
+        {
           "title": "Sync CC Static Server",
           "desc": "",
           "info": "sync-cc-static-server@0.1.0",
@@ -456,6 +479,29 @@
               "commands": [
                 {
                   "bash_c": "cp public/tailwind.css dist/",
+                  "ignore_fails": false,
+                  "show_success_output": false,
+                  "show_bash_c": true,
+                  "only_when_fresh": false
+                }
+              ]
+            }
+          },
+          "exec_in_project_dir": false
+        },
+        {
+          "title": "Add `favicon.ico` from `public` to `dist`",
+          "desc": "",
+          "info": "add-favicon-to-dist-folder@0.1.0",
+          "tags": [],
+          "action": {
+            "PostBuild": {
+              "supported_langs": [
+                "Rust"
+              ],
+              "commands": [
+                {
+                  "bash_c": "cp public/favicon.ico dist/",
                   "ignore_fails": false,
                   "show_success_output": false,
                   "show_bash_c": true,

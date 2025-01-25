@@ -1,7 +1,7 @@
 use cc_ui_kit::prelude::*;
 
 use log::info;
-use lucide_leptos::ArrowRightFromLine;
+use lucide_leptos::{ArrowRightFromLine, File};
 use thaw::*;
 
 fn main() {
@@ -44,9 +44,15 @@ fn App() -> impl IntoView {
         </DrawerBody>
       </OverlayDrawer>
       <div class="ml-4 mr-4 mt-4">
-        <Button appearance=ButtonAppearance::Primary on_click=move |_| open_f()>
+        <Button class="mr-4" appearance=ButtonAppearance::Primary on_click=move |_| open_f()>
           <ArrowRightFromLine color="white" size=24 stroke_width=2 />
           <p class="ml-2">"Hello there!"</p>
+        </Button>
+        <Button appearance=ButtonAppearance::Secondary on_click=move |_| open_f()>
+          <File color="black" size=24 stroke_width=2 />
+          <a href="/somefile.docx" class="ml-2">
+            "Download this"
+          </a>
         </Button>
       </div>
       <Skeleton>
