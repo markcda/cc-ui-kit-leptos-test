@@ -1,12 +1,15 @@
 [package]
 name = "cc-ui-kit-leptos-test"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2024"
 
 [dependencies]
-cc-ui-kit = { path = "./ui-kit" }
+cc-ui-kit = { git = "https://github.com/markcda/cc-ui-kit.git", tag = "0.1.0-alpha-3" }
+icondata = "0.5"
 leptos = { version = "0.7", features = ["csr"] }
+leptos_router = { version = "0.7" }
 lucide-leptos = "1.1"
+palette = "0.7"
 thaw = { version = "0.4.1", features = ["csr"] }
 
 [profile.release]

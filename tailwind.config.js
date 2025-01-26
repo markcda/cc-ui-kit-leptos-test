@@ -6,12 +6,12 @@ module.exports = {
   mode: "all",
   content: [
     "./src/**/*.{rs,html,css}",
-    "./dist/**/*.html",
-    ...uikitConfig.content
+    "./dist/**/*.html"
   ],
   theme: {
     extend: {
-      ...uikitConfig.theme.extend
+      keyframes: {},
+      animation: {},
     },
   },
   plugins: [],
