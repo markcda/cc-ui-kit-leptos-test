@@ -4,7 +4,7 @@ version = "0.1.1"
 edition = "2024"
 
 [dependencies]
-cc-ui-kit = { git = "https://github.com/markcda/cc-ui-kit.git", tag = "0.1.0-alpha-3" }
+cc-ui-kit = { git = "https://github.com/markcda/cc-ui-kit.git", tag = "0.1.0-alpha-10" }
 icondata = "0.5"
 leptos = { version = "0.7", features = ["csr"] }
 leptos_router = { version = "0.7" }

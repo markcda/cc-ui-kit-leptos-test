@@ -20,11 +20,12 @@
   "cache_files": [
     ".git",
     "Cargo.lock",
+    "public/tailwind.css",
     "target"
   ],
   "pipelines": [
     {
-      "title": "run",
+      "title": "deploy",
       "desc": "Получено из `CC UI Kit Frontend App`. Run your `cc-ui-kit` app with Deployer",
       "info": "cc-ui-kit-frontend-app@0.1.0",
       "tags": [
